@@ -3,188 +3,286 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sagar Jha — Data Analyst Portfolio</title>
+  <title>Sagar Jha — Data Analyst Portfolio (No Tailwind)</title>
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-
-  <!-- Tailwind config -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: "#080c2a",
-            navySoft: "#0c1238",
-            yellow: "#f5b700",
-            text: "#f6f7fb",
-            textDim: "#c9cbe3",
-            border: "#243055",
-          },
-          fontFamily: {
-            display: ["Poppins", "ui-sans-serif", "system-ui"],
-          },
-          boxShadow: {
-            card: "0 6px 24px rgba(0,0,0,.25)",
-            pill: "0 0 0 3px #10163a, inset 0 0 0 2px #ffffff",
-          },
-        },
-      },
-    };
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
-
-  <!-- Icons (Material Symbols) -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 24 }
+    /* ===== Theme variables (matches Tailwind config colors) ===== */
+    :root{
+      --navy: #080c2a;
+      --navy-soft: #0c1238;
+      --yellow: #f5b700;
+      --text: #f6f7fb;
+      --text-dim: #c9cbe3;
+      --border: #243055;
+
+      --max-width: 1200px; /* container width similar to max-w-7xl */
+      --font-display: 'Poppins', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+      --shadow-card: 0 6px 24px rgba(0,0,0,.25);
+      --shadow-pill: 0 0 0 3px rgba(16,22,58,1), inset 0 0 0 2px #ffffff;
+    }
+
+    /* ===== Reset & base ===== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--navy);
+      color:var(--text);
+      font-family:var(--font-display);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+
+    .container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 24px;
+    }
+
+    /* Material symbols setup */
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 600,'GRAD' 0,'opsz' 24;vertical-align:middle}
+
+    /* ===== Utilities & layout similar to original ===== */
+    .flex{display:flex}
+    .items-center{align-items:center}
+    .items-end{align-items:flex-end}
+    .items-start{align-items:flex-start}
+    .justify-between{justify-content:space-between}
+    .justify-center{justify-content:center}
+    .gap-3{gap:12px}
+    .gap-4{gap:16px}
+    .gap-8{gap:32px}
+    .space-y-6 > * + *{margin-top:24px}
+    .space-y-4 > * + *{margin-top:16px}
+    .rounded-full{border-radius:9999px}
+    .rounded-xl{border-radius:12px}
+
+    .border{border:1px solid var(--border)}
+    .border-2{border:2px solid rgba(255,255,255,.9)}
+    .border-yellow{border:2px solid var(--yellow)}
+
+    .text-yellow{color:var(--yellow)}
+    .text-textDim{color:var(--text-dim)}
+
+    .shadow-card{box-shadow:var(--shadow-card)}
+    .shadow-pill{box-shadow:var(--shadow-pill)}
+
+    /* ===== Header / Nav ===== */
+    header{
+      position:sticky;top:0;z-index:50;background:rgba(8,12,42,0.8);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);
+    }
+    nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+    nav .brand{display:flex;align-items:center;gap:12px}
+    nav .brand .name{font-weight:800;letter-spacing:0.6px}
+
+    nav ul{list-style:none;display:flex;gap:32px;margin:0;padding:0}
+    nav ul a{font-size:14px;font-weight:700;color:var(--text)}
+    nav ul a:hover{color:var(--yellow)}
+
+    @media(max-width:900px){
+      nav ul{display:none}
+    }
+
+    /* ===== Hero ===== */
+    section{padding:40px 0}
+    #home{padding-top:80px;padding-bottom:80px}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+    .pill{display:inline-block;border-radius:9999px;border:2px solid var(--yellow);padding:8px 14px;color:var(--yellow);font-weight:800;font-size:12px}
+
+    h1{font-weight:900;margin:0;line-height:1.05}
+    h1{font-size:48px}
+    @media(min-width:768px){h1{font-size:64px}}
+
+    p.lead{color:var(--text-dim);max-width:44rem;font-size:18px}
+
+    .cta-group a{display:inline-block;border-radius:9999px;padding:12px 28px;font-weight:700;border:2px solid rgba(255,255,255,.9);transition:all .18s}
+    .cta-primary{background:transparent}
+    .cta-yellow{border-color:var(--yellow);color:var(--yellow);font-weight:700}
+    .cta-yellow:hover{background:var(--yellow);color:var(--navy)}
+    .cta-primary:hover{background:rgba(255,255,255,0.95);color:var(--navy)}
+
+    /* Photo ring */
+    .photo-wrap{display:flex;justify-content:center}
+    .photo-circle{width:320px;height:320px;border-radius:9999px;background:var(--yellow);position:relative}
+    .photo-circle img{position:absolute;inset:8px;border-radius:9999px;object-fit:cover;width:calc(100% - 16px);height:calc(100% - 16px);border:8px solid var(--navy)}
+    @media(min-width:768px){.photo-circle{width:380px;height:380px}}
+
+    .chevron{display:flex;justify-content:center;padding-bottom:24px;color:var(--yellow)}
+    .bounce{animation:bounce 1.6s infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+    /* ===== Sections styling ===== */
+    .section-alt{background:var(--navy-soft);border-top:1px solid var(--border)}
+    .section-pad{padding:64px 0}
+
+    /* Grid utilities used across sections */
+    .two-col{display:grid;grid-template-columns:1fr;gap:24px}
+    @media(min-width:768px){.two-col{grid-template-columns:repeat(2,1fr)}}
+    .five-grid{display:grid;grid-template-columns:1fr;gap:20px}
+    @media(min-width:1024px){.five-grid{grid-template-columns:2fr 3fr}}
+
+    .skills-grid{display:grid;grid-template-columns:1fr;gap:20px}
+    @media(min-width:1024px){.skills-grid{grid-template-columns:repeat(4,1fr)}}
+
+    h2{font-size:40px;margin:0}
+    h3{font-size:24px;margin:0}
+
+    .skill-bullet{display:flex;align-items:center;gap:12px;font-size:18px}
+    .skill-pill{width:40px;height:40px;border-radius:9999px;background:var(--yellow);display:grid;place-items:center;color:var(--navy);font-weight:900}
+
+    /* Background / Education / Experience */
+    .bg-list{display:grid;grid-template-columns:1fr;gap:24px}
+    .bg-item{display:flex;gap:16px}
+    .bg-item .icon{width:48px;height:48px;border-radius:9999px;background:var(--yellow);display:grid;place-items:center;color:var(--navy);font-weight:900}
+    .muted{color:var(--text-dim)}
+
+    /* Projects */
+    .projects{display:grid;gap:32px}
+    .project{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:768px){.project{grid-template-columns:repeat(2,1fr)}}
+    .project-images{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .project-images img{height:280px;object-fit:cover;border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow-card)}
+    .project-meta a{display:inline-block;border-radius:32px;padding:12px 26px;border:4px solid rgba(255,255,255,.95);font-weight:800;margin-right:12px}
+    .project-meta a.yellow{border-color:var(--yellow);background:transparent;color:var(--yellow)}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+    @media(min-width:768px){.contact-grid{grid-template-columns:1fr 1fr}}
+    .contact-list{list-style:none;padding:0;margin:0}
+    .contact-list li{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .contact-list a{color:var(--text);text-decoration:underline;text-underline-offset:6px}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border);background:var(--navy);padding:24px 0;text-align:center;color:var(--text-dim);font-size:14px}
+
+    /* small screens tweaks */
+    @media(min-width:768px){
+      .container{padding:0 40px}
+      .hero-grid{grid-template-columns:1fr 1fr}
+      section{padding:64px 0}
+      .pill{font-size:14px}
+    }
+
   </style>
 </head>
-<body class="bg-navy text-text font-display">
+<body>
 
   <!-- NAV -->
-  <header class="sticky top-0 z-50 bg-navy/80 backdrop-blur border-b border-border">
-    <nav class="max-w-7xl mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-yellow">query_stats</span>
-        <span class="text-xl font-extrabold tracking-wide">Sagar Jha</span>
-      </a>
-      <ul class="hidden md:flex items-center gap-8 text-sm font-semibold">
-        <li><a class="hover:text-yellow" href="#home">Home</a></li>
-        <li><a class="hover:text-yellow" href="#about">About Me</a></li>
-        <li><a class="hover:text-yellow" href="#skills">Skill</a></li>
-        <li><a class="hover:text-yellow" href="#background">Background</a></li>
-        <li><a class="hover:text-yellow" href="#projects">Projects</a></li>
-        <li><a class="hover:text-yellow" href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <span class="material-symbols-outlined text-yellow">query_stats</span>
+          <span class="name" style="font-size:20px">Sagar Jha</span>
+        </div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#skills">Skill</a></li>
+          <li><a href="#background">Background</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
 
     <!-- HERO -->
-    <section id="home" class="relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+    <section id="home">
+      <div class="container hero-grid">
         <div class="space-y-6">
-          <!-- pill -->
-          <div class="inline-block">
-            <span class="rounded-full border-2 border-yellow px-4 py-2 text-yellow font-extrabold tracking-wide text-xs md:text-sm">
-              DATA ANALYST <span class="text-textDim font-semibold">PORTFOLIO</span>
-            </span>
-          </div>
+          <div class="pill">DATA ANALYST <span style="color:var(--text-dim);font-weight:600;margin-left:8px">PORTFOLIO</span></div>
 
-          <!-- big name -->
-          <h1 class="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight">
-            SAGAR <span class="text-yellow">KUMAR</span> JHA
-          </h1>
+          <h1>SAGAR <span class="text-yellow">KUMAR</span> JHA</h1>
 
-          <p class="text-lg md:text-xl text-textDim max-w-xl">
-            I help people find <span class="text-yellow font-semibold">insights</span> through data and turn them into action.
-          </p>
+          <p class="lead">I help people find <span class="text-yellow" style="font-weight:700">insights</span> through data and turn them into action.</p>
 
-          <div class="flex flex-wrap gap-4 pt-2">
-            <a href="#projects" class="rounded-full border-2 border-white/90 px-6 py-3 font-semibold hover:bg-white hover:text-navy transition">Projects</a>
-            <a href="Sagar_Jha_Resume.pdf" class="rounded-full border-2 border-yellow px-6 py-3 font-semibold text-yellow hover:bg-yellow hover:text-navy transition" download>Download CV</a>
+          <div class="cta-group" style="padding-top:8px;display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#projects" class="cta-primary">Projects</a>
+            <a href="Sagar_Jha_Resume.pdf" class="cta-yellow" download>Download CV</a>
           </div>
         </div>
 
         <!-- photo ring -->
-        <div class="relative mx-auto">
-          <div class="w-[320px] h-[320px] md:w-[380px] md:h-[380px] rounded-full bg-yellow relative">
-            <img
-              src="./assets/Photo.jpeg" alt="Sagar Jha"
-              class="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-cover rounded-full ring-8 ring-navy"
-            />
+        <div class="photo-wrap">
+          <div class="photo-circle">
+            <img src="./assets/Photo.jpeg" alt="Sagar Jha" />
           </div>
         </div>
+
       </div>
 
-      <!-- scroll chevron -->
-      <div class="flex justify-center pb-6">
-        <div class="animate-bounce text-yellow">
-          <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
-        </div>
+      <div class="chevron">
+        <div class="bounce"><span class="material-symbols-outlined">keyboard_double_arrow_down</span></div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="py-20 md:py-24 border-t border-border bg-navySoft">
-      <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-5 gap-10 items-center">
-        <div class="md:col-span-2">
-          <h2 class="text-5xl md:text-6xl font-black leading-tight">Hello,<br/>I’m <span class="text-yellow">Sagar!</span></h2>
+    <section id="about" class="section-alt">
+      <div class="container two-col section-pad">
+        <div style="grid-column:span 1">
+          <h2 style="font-size:48px">Hello,<br/>I’m <span class="text-yellow">Sagar!</span></h2>
         </div>
-        <div class="md:col-span-3">
-          <p class="text-base md:text-lg text-textDim leading-relaxed">
-            Fresher Data Analyst skilled in Python, SQL, Power BI, Tableau and Excel. I work end-to-end across
-            cleaning & modeling, dashboards, forecasting, and automated ETL. I enjoy translating ambiguity
-            into clear metrics and visuals that help teams decide faster.
-          </p>
+        <div>
+          <p class="muted" style="font-size:18px;max-width:60ch">Fresher Data Analyst skilled in Python, SQL, Power BI, Tableau and Excel. I work end-to-end across cleaning &amp; modeling, dashboards, forecasting, and automated ETL. I enjoy translating ambiguity into clear metrics and visuals that help teams decide faster.</p>
 
-          <div class="flex flex-wrap gap-4 mt-8">
-            <a href="https://www.linkedin.com/in/sagar0333/" target="_blank"
-               class="rounded-full px-4 py-2 border-2 border-white/80 backdrop-blur hover:bg-white hover:text-navy transition flex items-center gap-2">
-              <span class="material-symbols-outlined">linked_camera</span> LinkedIn
-            </a>
-            <a href="mailto:sagarjha0999@gmail.com"
-               class="rounded-full px-4 py-2 border-2 border-white/80 hover:bg-white hover:text-navy transition flex items-center gap-2">
-              <span class="material-symbols-outlined">mail</span> Email
-            </a>
+          <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+            <a href="https://www.linkedin.com/in/sagar0333/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;border-radius:9999px;padding:10px 14px;border:2px solid rgba(255,255,255,0.8);backdrop-filter:blur(4px)"><span class="material-symbols-outlined">linked_camera</span> LinkedIn</a>
+            <a href="mailto:sagarjha0999@gmail.com" style="display:inline-flex;align-items:center;gap:8px;border-radius:9999px;padding:10px 14px;border:2px solid rgba(255,255,255,0.8)"><span class="material-symbols-outlined">mail</span> Email</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="py-20 md:py-24">
-      <div class="max-w-7xl mx-auto px-6 md:px-10">
-        <div class="inline-block mb-10">
-          <span class="rounded-full border-2 border-yellow px-4 py-2 text-yellow font-extrabold text-sm tracking-wide">Technical Skills</span>
-        </div>
+    <section id="skills">
+      <div class="container section-pad">
+        <div style="display:inline-block;margin-bottom:20px"><span class="pill" style="border-color:var(--yellow);color:var(--yellow);">Technical Skills</span></div>
 
-        <div class="grid lg:grid-cols-4 gap-10 relative">
-          <!-- col 1 -->
-          <div class="space-y-6">
-            <h3 class="text-3xl font-extrabold">Programming<br/><span class="text-yellow">Languages</span></h3>
-            <ul class="space-y-5 text-lg">
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">Py</span> Python</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">SQL</span> SQL</li>
+        <div class="skills-grid">
+          <div>
+            <h3 style="font-size:28px">Programming<br/><span class="text-yellow">Languages</span></h3>
+            <ul style="list-style:none;padding:0;margin-top:16px">
+              <li class="skill-bullet"><span class="skill-pill">Py</span> Python</li>
+              <li class="skill-bullet"><span class="skill-pill">SQL</span> SQL</li>
             </ul>
           </div>
 
-          <!-- divider -->
-          <div class="hidden lg:block absolute left-1/4 top-0 bottom-0 border-l border-border"></div>
-          <div class="hidden lg:block absolute left-2/4 top-0 bottom-0 border-l border-border"></div>
-          <div class="hidden lg:block absolute left-3/4 top-0 bottom-0 border-l border-border"></div>
-
-          <!-- col 2 -->
-          <div class="space-y-6">
-            <h3 class="text-3xl font-extrabold">Data Analytic<br/><span class="text-yellow">Tools</span></h3>
-            <ul class="space-y-5 text-lg">
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">Ex</span> Microsoft Excel</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">Gs</span> Google Sheets</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">GB</span> BigQuery</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">VS</span> VS Code</li>
+          <div>
+            <h3 style="font-size:28px">Data Analytic<br/><span class="text-yellow">Tools</span></h3>
+            <ul style="list-style:none;padding:0;margin-top:16px">
+              <li class="skill-bullet"><span class="skill-pill">Ex</span> Microsoft Excel</li>
+              <li class="skill-bullet"><span class="skill-pill">Gs</span> Google Sheets</li>
+              <li class="skill-bullet"><span class="skill-pill">GB</span> BigQuery</li>
+              <li class="skill-bullet"><span class="skill-pill">VS</span> VS Code</li>
             </ul>
           </div>
 
-          <!-- col 3 -->
-          <div class="space-y-6">
-            <h3 class="text-3xl font-extrabold">Data Visualization<br/><span class="text-yellow">Tools</span></h3>
-            <ul class="space-y-5 text-lg">
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">PB</span> Power BI</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">Tb</span> Tableau</li>
-              <li class="flex items-center gap-3"><span class="w-10 h-10 bg-yellow rounded-full grid place-content-center text-navy font-black">LS</span> Looker Studio</li>
+          <div>
+            <h3 style="font-size:28px">Data Visualization<br/><span class="text-yellow">Tools</span></h3>
+            <ul style="list-style:none;padding:0;margin-top:16px">
+              <li class="skill-bullet"><span class="skill-pill">PB</span> Power BI</li>
+              <li class="skill-bullet"><span class="skill-pill">Tb</span> Tableau</li>
+              <li class="skill-bullet"><span class="skill-pill">LS</span> Looker Studio</li>
             </ul>
           </div>
 
-          <!-- col 4 -->
-          <div class="space-y-6">
-            <h3 class="text-3xl font-extrabold">Data Analytic<br/><span class="text-yellow">Methods</span></h3>
-            <ul class="list-disc list-inside text-lg space-y-2 text-textDim">
+          <div>
+            <h3 style="font-size:28px">Data Analytic<br/><span class="text-yellow">Methods</span></h3>
+            <ul style="list-style:disc;padding-left:18px;color:var(--text-dim);margin-top:12px">
               <li>EDA, Segmentation/Clustering</li>
-              <li>Cohorts & Retention</li>
+              <li>Cohorts &amp; Retention</li>
               <li>Linear/Logistic Regression</li>
               <li>AB Testing, ANOVA, T-Test</li>
               <li>Time-series Forecasting</li>
@@ -195,39 +293,37 @@
     </section>
 
     <!-- BACKGROUND -->
-    <section id="background" class="py-20 md:py-24 bg-navySoft border-t border-border">
-      <div class="max-w-7xl mx-auto px-6 md:px-10">
-        <div class="inline-block mb-10">
-          <span class="rounded-full border-2 border-yellow px-4 py-2 text-yellow font-extrabold text-sm tracking-wide">Education & Experience Background</span>
-        </div>
+    <section id="background" class="section-alt">
+      <div class="container section-pad">
+        <div style="display:inline-block;margin-bottom:20px"><span class="pill">Education &amp; Experience Background</span></div>
 
-        <div class="grid md:grid-cols-2 gap-12">
-          <!-- Education -->
-          <div>
-            <h3 class="text-4xl font-black mb-8">EDU<span class="text-yellow">CATION</span></h3>
-            <ul class="space-y-8">
-              <li class="flex gap-4">
-                <span class="w-12 h-12 rounded-full bg-yellow grid place-content-center text-navy font-black">AU</span>
-                <div>
-                  <p class="font-extrabold">Amity University Maharashtra — B.Tech CSE (Data Science)</p>
-                  <p class="text-textDim">2021–2025 | CGPA 8.73</p>
-                </div>
-              </li>
-            </ul>
-          </div>
+        <div class="bg-list" style="margin-top:20px">
+          <div style="display:grid;grid-template-columns:1fr;gap:24px">
+            <div>
+              <h3 style="font-size:32px">EDU<span class="text-yellow">CATION</span></h3>
+              <ul style="list-style:none;padding:0;margin-top:16px">
+                <li class="bg-item">
+                  <div class="icon">AU</div>
+                  <div>
+                    <p style="font-weight:800;margin:0">Amity University Maharashtra — B.Tech CSE (Data Science)</p>
+                    <p class="muted">2021–2025 | CGPA 8.73</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
 
-          <!-- Experience -->
-          <div>
-            <h3 class="text-4xl font-black mb-8">EXPE<span class="text-yellow">RIENCE</span></h3>
-            <ul class="space-y-8">
-              <li class="flex gap-4">
-                <span class="w-12 h-12 rounded-full bg-yellow grid place-content-center text-navy font-black">IS</span>
-                <div>
-                  <p class="font-extrabold">ISRO — Data Analyst Intern (2024)</p>
-                  <p class="text-textDim">Processed 1M+ telemetry records; ML (~89% acc.); automated feature pipelines → ~40% faster preprocessing.</p>
-                </div>
-              </li>
-            </ul>
+            <div>
+              <h3 style="font-size:32px">EXPE<span class="text-yellow">RIENCE</span></h3>
+              <ul style="list-style:none;padding:0;margin-top:16px">
+                <li class="bg-item">
+                  <div class="icon">IS</div>
+                  <div>
+                    <p style="font-weight:800;margin:0">ISRO — Data Analyst Intern (2024)</p>
+                    <p class="muted">Processed 1M+ telemetry records; ML (~89% acc.); automated feature pipelines → ~40% faster preprocessing.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -235,64 +331,57 @@
     </section>
 
     <!-- PROJECTS -->
-    <section id="projects" class="py-20 md:py-24">
-      <div class="max-w-7xl mx-auto px-6 md:px-10 space-y-20">
+    <section id="projects">
+      <div class="container projects section-pad">
 
         <!-- Project 01 -->
-        <article class="space-y-6">
-          <div class="flex items-end gap-4">
-            <div class="text-6xl md:text-7xl font-black">01</div>
-            <h3 class="text-3xl md:text-4xl font-extrabold">Flipkart Sales Analytics</h3>
+        <article class="project">
+          <div style="display:flex;align-items:flex-end;gap:12px">
+            <div style="font-size:56px;font-weight:900">01</div>
+            <h3 style="font-size:28px">Flipkart Sales Analytics</h3>
           </div>
-          <div class="grid md:grid-cols-2 gap-8">
-            <img src="./assets/flip1.png" alt="Flipkart dashboard" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
-            <img src="./assets//flipkart2.png" alt="Charts" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
+          <div class="project-images">
+            <img src="./assets/flip1.png" alt="Flipkart dashboard" />
+            <img src="./assets/flipkart2.png" alt="Charts" />
           </div>
-          <p class="text-textDim leading-relaxed">
-            End-to-end analysis on 1M+ orders to find revenue drivers, retention cohorts, and price sensitivity.
-            Automated reporting and built KPI dashboards.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="https://github.com/saggrr" target="_blank" class="rounded-[2rem] px-6 py-3 border-4 border-white text-base font-bold shadow-pill hover:bg-white hover:text-navy transition">Full Repo</a>
-            <a href="#" class="rounded-[2rem] px-6 py-3 border-4 border-yellow text-base font-bold hover:bg-yellow hover:text-navy transition">Dashboard</a>
+          <p class="muted">End-to-end analysis on 1M+ orders to find revenue drivers, retention cohorts, and price sensitivity. Automated reporting and built KPI dashboards.</p>
+          <div class="project-meta">
+            <a href="https://github.com/saggrr" target="_blank">Full Repo</a>
+            <a href="#" class="yellow">Dashboard</a>
           </div>
         </article>
 
         <!-- Project 02 -->
-        <article class="space-y-6">
-          <div class="flex items-end gap-4">
-            <div class="text-6xl md:text-7xl font-black">02</div>
-            <h3 class="text-3xl md:text-4xl font-extrabold">Seller Performance Management</h3>
+        <article class="project">
+          <div style="display:flex;align-items:flex-end;gap:12px">
+            <div style="font-size:56px;font-weight:900">02</div>
+            <h3 style="font-size:28px">Seller Performance Management</h3>
           </div>
-          <div class="grid md:grid-cols-2 gap-8">
-            <img src="./assets/seller1.png" alt="Seller dashboard" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
-            <img src="./assets/seller2.png" alt="Analytics" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
+          <div class="project-images">
+            <img src="./assets/seller1.png" alt="Seller dashboard" />
+            <img src="./assets/seller2.png" alt="Analytics" />
           </div>
-          <p class="text-textDim leading-relaxed">
-            Evaluated 10K+ SKUs to surface ~$2.7M dead stock and cut holding costs ~18%. Built procurement dashboard + forecasting.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="https://github.com/saggrr" target="_blank" class="rounded-[2rem] px-6 py-3 border-4 border-white text-base font-bold shadow-pill hover:bg-white hover:text-navy transition">Full Repo</a>
-            <a href="#" class="rounded-[2rem] px-6 py-3 border-4 border-yellow text-base font-bold hover:bg-yellow hover:text-navy transition">Deck</a>
+          <p class="muted">Evaluated 10K+ SKUs to surface ~$2.7M dead stock and cut holding costs ~18%. Built procurement dashboard + forecasting.</p>
+          <div class="project-meta">
+            <a href="https://github.com/saggrr" target="_blank">Full Repo</a>
+            <a href="#" class="yellow">Deck</a>
           </div>
         </article>
 
         <!-- Project 03 -->
-        <article class="space-y-6">
-          <div class="flex items-end gap-4">
-            <div class="text-6xl md:text-7xl font-black">03</div>
-            <h3 class="text-3xl md:text-4xl font-extrabold">Integrated BI & Forecasting</h3>
+        <article class="project">
+          <div style="display:flex;align-items:flex-end;gap:12px">
+            <div style="font-size:56px;font-weight:900">03</div>
+            <h3 style="font-size:28px">Integrated BI &amp; Forecasting</h3>
           </div>
-          <div class="grid md:grid-cols-2 gap-8">
-            <img src="./assets//integr1.png" alt="BI dash" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
-            <img src="./assets/integ2.png" alt="Forecasting" class="rounded-xl shadow-card border border-border object-cover w-full h-[280px]" />
+          <div class="project-images">
+            <img src="./assets/integr1.png" alt="BI dash" />
+            <img src="./assets/integ2.png" alt="Forecasting" />
           </div>
-          <p class="text-textDim leading-relaxed">
-            DAX-driven sales dashboards, churn cohorts & revenue-risk KPIs; ARIMA/Prophet demand forecasting with 92% accuracy.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="https://github.com/saggrr" target="_blank" class="rounded-[2rem] px-6 py-3 border-4 border-white text-base font-bold shadow-pill hover:bg-white hover:text-navy transition">Full Repo</a>
-            <a href="#" class="rounded-[2rem] px-6 py-3 border-4 border-yellow text-base font-bold hover:bg-yellow hover:text-navy transition">Dashboard</a>
+          <p class="muted">DAX-driven sales dashboards, churn cohorts &amp; revenue-risk KPIs; ARIMA/Prophet demand forecasting with 92% accuracy.</p>
+          <div class="project-meta">
+            <a href="https://github.com/saggrr" target="_blank">Full Repo</a>
+            <a href="#" class="yellow">Dashboard</a>
           </div>
         </article>
 
@@ -300,46 +389,29 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="py-20 md:py-24 bg-navySoft border-t border-border">
-      <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-10 items-start">
-        <div class="space-y-4">
-          <div class="inline-block">
-            <span class="rounded-full border-2 border-yellow px-4 py-2 text-yellow font-extrabold text-sm tracking-wide">Contact Info</span>
-          </div>
-          <ul class="space-y-6 text-lg">
-            <li class="flex items-center gap-4">
-              <span class="material-symbols-outlined text-3xl text-yellow">call</span>
-              <a href="tel:+919167484521" class="underline underline-offset-4 hover:text-yellow">+91 91674 84521</a>
-            </li>
-            <li class="flex items-center gap-4">
-              <span class="material-symbols-outlined text-3xl text-yellow">mail</span>
-              <a href="mailto:sagarjha0999@gmail.com" class="underline underline-offset-4 hover:text-yellow">sagarjha0999@gmail.com</a>
-            </li>
-            <li class="flex items-center gap-4">
-              <span class="material-symbols-outlined text-3xl text-yellow">linked_camera</span>
-              <a href="https://www.linkedin.com/in/sagar0333/" target="_blank" class="underline underline-offset-4 hover:text-yellow">linkedin.com/in/sagar0333/</a>
-            </li>
+    <section id="contact" class="section-alt">
+      <div class="container section-pad contact-grid">
+        <div>
+          <div style="display:inline-block;margin-bottom:12px"><span class="pill">Contact Info</span></div>
+          <ul class="contact-list">
+            <li><span class="material-symbols-outlined text-yellow" style="font-size:26px">call</span> <a href="tel:+919167484521">+91 91674 84521</a></li>
+            <li><span class="material-symbols-outlined text-yellow" style="font-size:26px">mail</span> <a href="mailto:sagarjha0999@gmail.com">sagarjha0999@gmail.com</a></li>
+            <li><span class="material-symbols-outlined text-yellow" style="font-size:26px">linked_camera</span> <a href="https://www.linkedin.com/in/sagar0333/" target="_blank">linkedin.com/in/sagar0333/</a></li>
           </ul>
         </div>
 
-        <div class="text-right">
-          <h3 class="text-4xl md:text-5xl font-black leading-tight">
-            Let’s <span class="text-yellow">connect</span> and<br/>work together!
-          </h3>
+        <div style="text-align:right">
+          <h3 style="font-size:40px;font-weight:900;line-height:1.05">Let’s <span class="text-yellow">connect</span> and<br/>work together!</h3>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="border-t border-border bg-navy">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 py-8 text-center text-sm text-textDim">
-      © <span id="year"></span> Sagar Jha • Built with Tailwind
-    </div>
+  <footer>
+    <div class="container">© <span id="year"></span> Sagar Jha • Built with CSS</div>
   </footer>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
